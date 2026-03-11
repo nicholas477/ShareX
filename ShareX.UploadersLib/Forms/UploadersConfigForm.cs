@@ -235,6 +235,12 @@ namespace ShareX.UploadersLib
             txtVgymeUserKey.Text = Config.VgymeUserKey;
 
             #endregion vgy.me
+
+            #region Szurubooru
+            txtSzurubooruToken.Text = Config.SzurubooruServerToken;
+            txtSzurubooruClientURL.Text = Config.SzurubooruClientURL;
+            txtSzurubooruServerURL.Text = Config.SzurubooruServerURL;
+            #endregion Szurubooru
         }
 
         private void LoadTextUploaderSettings()
@@ -971,6 +977,25 @@ namespace ShareX.UploadersLib
         }
 
         #endregion vgy.me
+
+        #region Szurubooru
+
+        private void txtSzurubooruClientURL_TextChanged(object sender, EventArgs e)
+        {
+            Config.SzurubooruClientURL = txtSzurubooruClientURL.Text;
+        }
+
+        private void txtSzurubooruServerURL_TextChanged(object sender, EventArgs e)
+        {
+            Config.SzurubooruServerURL = txtSzurubooruServerURL.Text;
+        }
+
+        private void txtSzurubooruToken_TextChanged(object sender, EventArgs e)
+        {
+            Config.SzurubooruServerToken = txtSzurubooruToken.Text;
+        }
+
+        #endregion Szurubooru
 
         #endregion Image uploaders
 
@@ -2926,5 +2951,10 @@ However, there is a workaround. You can navigate to the Google Drive website in 
         #endregion
 
         #endregion URL shorteners
+
+        private void tttvMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

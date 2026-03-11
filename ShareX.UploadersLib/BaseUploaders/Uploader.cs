@@ -23,6 +23,7 @@
 
 #endregion License Information (GPL v3)
 
+using Newtonsoft.Json.Linq;
 using ShareX.HelpersLib;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,8 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ShareX.UploadersLib
 {
@@ -182,6 +185,82 @@ namespace ShareX.UploadersLib
                 contentType += "; boundary=" + boundary;
 
                 byte[] bytesArguments = RequestHelpers.MakeInputContent(boundary, args, false);
+                byte[] bytesDataOpen;
+
+                if (relatedData != null)
+                {
+                    bytesDataOpen = RequestHelpers.MakeRelatedFileInputContentOpen(boundary, "application/json; charset=UTF-8", relatedData, fileName);
+                }
+                else
+                {
+                    bytesDataOpen = RequestHelpers.MakeFileInputContentOpen(boundary, fileFormName, fileName);
+                }
+
+                byte[] bytesDataClose = RequestHelpers.MakeFileInputContentClose(boundary);
+
+                long contentLength = bytesArguments.Length + bytesDataOpen.Length + data.Length + bytesDataClose.Length;
+
+                HttpWebRequest request = CreateWebRequest(method, url, headers, cookies, contentType, contentLength);
+
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(bytesArguments, 0, bytesArguments.Length);
+                    requestStream.Write(bytesDataOpen, 0, bytesDataOpen.Length);
+                    if (!TransferData(data, requestStream)) return null;
+                    requestStream.Write(bytesDataClose, 0, bytesDataClose.Length);
+                }
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    result.ResponseInfo = ProcessWebResponse(response);
+                    result.Response = result.ResponseInfo?.ResponseText;
+                }
+
+                result.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                if (!StopUploadRequested)
+                {
+                    string response = ProcessError(e, url);
+
+                    if (ReturnResponseOnError && e is WebException)
+                    {
+                        result.Response = response;
+                    }
+                }
+            }
+            finally
+            {
+                currentWebRequest = null;
+                IsUploading = false;
+            }
+
+            return result;
+        }
+
+        protected UploadResult SendRequestSzuru(string url, Stream data, string fileName, string fileFormName, Dictionary<string, string> args = null,
+            NameValueCollection headers = null, CookieCollection cookies = null, HttpMethod method = HttpMethod.POST, string contentType = RequestHelpers.ContentTypeMultipartFormData,
+            string relatedData = null)
+        {
+            UploadResult result = new UploadResult();
+
+            IsUploading = true;
+            StopUploadRequested = false;
+
+            try
+            {
+                string boundary = RequestHelpers.CreateBoundary();
+                contentType += "; boundary=" + boundary;
+
+                byte[] bytesArguments = RequestHelpers.MakeInputContent(boundary, args, false);
+
+                {
+                    string json = "{\"tags\":[\"sharex\"], \"safety\":\"safe\"}";
+                    string content = $"--{boundary}\r\nContent-Disposition: form-data; name=\"metadata\";\r\nContent-Type: application/json\r\n\r\n{json}\r\n\r\n";
+                    bytesArguments = Encoding.UTF8.GetBytes(content);
+                }
+
                 byte[] bytesDataOpen;
 
                 if (relatedData != null)

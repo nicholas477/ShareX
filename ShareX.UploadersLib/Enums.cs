@@ -43,6 +43,8 @@ namespace ShareX.UploadersLib
         Chevereto,
         [Description("vgy.me")]
         Vgyme,
+        [Description("szurubooru")]
+        Szurubooru,
         CustomImageUploader, // Localized
         FileUploader // Localized
     }
@@ -119,6 +121,8 @@ namespace ShareX.UploadersLib
         Streamable,
         [Description("s-ul")]
         Sul,
+        [Description("szurubooru")]
+        Szurubooru,
         [Description("LobFile")]
         Lithiio,
         [Description("transfer.sh")]

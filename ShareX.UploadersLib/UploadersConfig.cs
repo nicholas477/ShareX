@@ -83,6 +83,17 @@ namespace ShareX.UploadersLib
 
         #endregion vgy.me
 
+        #region Szurubooru
+
+        [JsonEncrypt]
+        public string SzurubooruServerToken { get; set; }
+
+        public string SzurubooruClientURL { get; set; }
+
+        public string SzurubooruServerURL { get; set; }
+
+        #endregion Szurubooru
+
         #endregion Image uploaders
 
         #region Text uploaders

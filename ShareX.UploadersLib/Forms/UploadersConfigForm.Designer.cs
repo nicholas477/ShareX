@@ -22,6 +22,8 @@
 */
 
 #endregion License Information (GPL v3)
+using ShareX.UploadersLib.ImageUploaders;
+
 namespace ShareX.UploadersLib
 {
     partial class UploadersConfigForm
@@ -568,6 +570,13 @@ namespace ShareX.UploadersLib
             txtCheveretoUploadURL = new System.Windows.Forms.TextBox();
             txtCheveretoAPIKey = new System.Windows.Forms.TextBox();
             lblCheveretoAPIKey = new System.Windows.Forms.Label();
+            tpSzurubooru = new System.Windows.Forms.TabPage();
+            txtSzurubooruToken = new System.Windows.Forms.TextBox();
+            lblSzurubooruToken = new System.Windows.Forms.Label();
+            txtSzurubooruClientURL = new System.Windows.Forms.TextBox();
+            txtSzurubooruServerURL = new System.Windows.Forms.TextBox();
+            lblSzurubooruClientURL = new System.Windows.Forms.Label();
+            lblSzurubooruServerURL = new System.Windows.Forms.Label();
             tpVgyme = new System.Windows.Forms.TabPage();
             llVgymeAccountDetailsPage = new System.Windows.Forms.LinkLabel();
             txtVgymeUserKey = new System.Windows.Forms.TextBox();
@@ -648,6 +657,7 @@ namespace ShareX.UploadersLib
             gbPhotobucketAlbums.SuspendLayout();
             gbPhotobucketUserAccount.SuspendLayout();
             tpChevereto.SuspendLayout();
+            tpSzurubooru.SuspendLayout();
             tpVgyme.SuspendLayout();
             tcUploaders.SuspendLayout();
             SuspendLayout();
@@ -3967,6 +3977,7 @@ namespace ShareX.UploadersLib
             tcImageUploaders.Controls.Add(tpFlickr);
             tcImageUploaders.Controls.Add(tpPhotobucket);
             tcImageUploaders.Controls.Add(tpChevereto);
+            tcImageUploaders.Controls.Add(tpSzurubooru);
             tcImageUploaders.Controls.Add(tpVgyme);
             resources.ApplyResources(tcImageUploaders, "tcImageUploaders");
             tcImageUploaders.Name = "tcImageUploaders";
@@ -4337,6 +4348,51 @@ namespace ShareX.UploadersLib
             resources.ApplyResources(lblCheveretoAPIKey, "lblCheveretoAPIKey");
             lblCheveretoAPIKey.Name = "lblCheveretoAPIKey";
             // 
+            // tpSzurubooru
+            // 
+            tpSzurubooru.BackColor = System.Drawing.SystemColors.Window;
+            tpSzurubooru.Controls.Add(txtSzurubooruToken);
+            tpSzurubooru.Controls.Add(lblSzurubooruToken);
+            tpSzurubooru.Controls.Add(txtSzurubooruClientURL);
+            tpSzurubooru.Controls.Add(txtSzurubooruServerURL);
+            tpSzurubooru.Controls.Add(lblSzurubooruClientURL);
+            tpSzurubooru.Controls.Add(lblSzurubooruServerURL);
+            resources.ApplyResources(tpSzurubooru, "tpSzurubooru");
+            tpSzurubooru.Name = "tpSzurubooru";
+            // 
+            // txtSzurubooruToken
+            // 
+            resources.ApplyResources(txtSzurubooruToken, "txtSzurubooruToken");
+            txtSzurubooruToken.Name = "txtSzurubooruToken";
+            txtSzurubooruToken.TextChanged += txtSzurubooruToken_TextChanged;
+            // 
+            // lblSzurubooruToken
+            // 
+            resources.ApplyResources(lblSzurubooruToken, "lblSzurubooruToken");
+            lblSzurubooruToken.Name = "lblSzurubooruToken";
+            // 
+            // txtSzurubooruClientURL
+            // 
+            resources.ApplyResources(txtSzurubooruClientURL, "txtSzurubooruClientURL");
+            txtSzurubooruClientURL.Name = "txtSzurubooruClientURL";
+            txtSzurubooruClientURL.TextChanged += txtSzurubooruClientURL_TextChanged;
+            // 
+            // txtSzurubooruServerURL
+            // 
+            resources.ApplyResources(txtSzurubooruServerURL, "txtSzurubooruServerURL");
+            txtSzurubooruServerURL.Name = "txtSzurubooruServerURL";
+            txtSzurubooruServerURL.TextChanged += txtSzurubooruServerURL_TextChanged;
+            // 
+            // lblSzurubooruClientURL
+            // 
+            resources.ApplyResources(lblSzurubooruClientURL, "lblSzurubooruClientURL");
+            lblSzurubooruClientURL.Name = "lblSzurubooruClientURL";
+            // 
+            // lblSzurubooruServerURL
+            // 
+            resources.ApplyResources(lblSzurubooruServerURL, "lblSzurubooruServerURL");
+            lblSzurubooruServerURL.Name = "lblSzurubooruServerURL";
+            // 
             // tpVgyme
             // 
             tpVgyme.BackColor = System.Drawing.SystemColors.Window;
@@ -4386,6 +4442,7 @@ namespace ShareX.UploadersLib
             tttvMain.SeparatorColor = System.Drawing.SystemColors.ControlDark;
             tttvMain.TreeViewFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             tttvMain.TreeViewSize = 230;
+            tttvMain.Load += tttvMain_Load;
             // 
             // actRapidShareAccountType
             // 
@@ -4533,6 +4590,8 @@ namespace ShareX.UploadersLib
             gbPhotobucketUserAccount.PerformLayout();
             tpChevereto.ResumeLayout(false);
             tpChevereto.PerformLayout();
+            tpSzurubooru.ResumeLayout(false);
+            tpSzurubooru.PerformLayout();
             tpVgyme.ResumeLayout(false);
             tpVgyme.PerformLayout();
             tcUploaders.ResumeLayout(false);
@@ -4728,6 +4787,10 @@ namespace ShareX.UploadersLib
         private System.Windows.Forms.TextBox txtCheveretoAPIKey;
         private System.Windows.Forms.Label lblCheveretoAPIKey;
         private System.Windows.Forms.CheckBox cbCheveretoDirectURL;
+        private System.Windows.Forms.Label lblSzurubooruClientURL;
+        private System.Windows.Forms.TextBox txtSzurubooruClientURL;
+        private System.Windows.Forms.TextBox txtSzurubooruServerURL;
+        private System.Windows.Forms.Label lblSzurubooruServerURL;
         private System.Windows.Forms.ComboBox cbPastebinSyntax;
         private System.Windows.Forms.TextBox txtHastebinSyntaxHighlighting;
         private System.Windows.Forms.TextBox txtHastebinCustomDomain;
@@ -4815,6 +4878,7 @@ namespace ShareX.UploadersLib
         internal System.Windows.Forms.TabPage tpPhotobucket;
         internal System.Windows.Forms.TabPage tpChevereto;
         internal System.Windows.Forms.TabPage tpVgyme;
+        internal System.Windows.Forms.TabPage tpSzurubooru;
         internal System.Windows.Forms.TabPage tpPastebin;
         internal System.Windows.Forms.TabPage tpPaste_ee;
         internal System.Windows.Forms.TabPage tpGist;
@@ -5063,5 +5127,7 @@ namespace ShareX.UploadersLib
         private System.Windows.Forms.TextBox txtAzureStorageCacheControl;
         private System.Windows.Forms.Label lblAzureStorageCacheControl;
         private System.Windows.Forms.Button btnGoogleDriveFolderIDHelp;
+        private System.Windows.Forms.TextBox txtSzurubooruToken;
+        private System.Windows.Forms.Label lblSzurubooruToken;
     }
 }
